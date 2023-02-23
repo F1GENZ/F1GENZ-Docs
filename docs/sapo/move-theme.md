@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Clone Theme.
+# Clone Theme
 
 ## Bước 1: Thiết lập Folder ##
 - Giải nén Folder cha.
