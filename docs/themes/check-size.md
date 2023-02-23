@@ -1,4 +1,7 @@
-# Check size Theme
+---
+sidebar_position: 1
+---
+# Size Theme
 
 ```jsx title="Console"
 var script = document.createElement("script");
