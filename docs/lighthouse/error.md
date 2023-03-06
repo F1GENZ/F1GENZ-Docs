@@ -37,3 +37,6 @@ if (window.noPS) {
 ### Meta viewport
 
 `<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">`;
+
+### Các phần tử hình ảnh không có width và height rõ ràng
+- Thêm width, height cho tất cả thẻ Img
