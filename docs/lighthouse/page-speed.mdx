@@ -52,6 +52,10 @@ if(window.noPS){
 // Preload các banner xuất hiện đầu trang
 ```
 
+:::danger
+- Preload các hình ở màn hình đầu tiên, Preload hình nào sẽ không dùng Lazyload cho hình đó.
+:::
+
 :::tip Load JS
 
 ```js
@@ -82,19 +86,29 @@ document.head.appendChild(link);
 :::
 
 ## 3. Xử lý Recapcha ##
-```js
-if($('input[name="g-recaptcha-response"]').length > 0){
-    $.getScript('https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-').done(function(s,r){			
-        $('head').append(s);
-        $('input[name="g-recaptcha-response"]').each(function(){
-            var flagId = $(this).attr('id');
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', {action: 'submit'})
-                    .then(function(token) {
-                    document.getElementById(flagId).value = token;
+```js title="Xử lý Liquid"
+{%- capture formContact -%}
+{%- form 'customer' -%}		
+{%- endform -}
+{%- endcapture -%}
+{{ formContact | replace: 'script', 'noscript' | replace:'noscript src=', 'noscript data-src='}}
+```
+
+```js title="Xử lý JS"
+if(window.noPS){
+    if($('input[name="g-recaptcha-response"]').length > 0){
+        $.getScript('https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-').done(function(s,r){			
+            $('head').append(s);
+            $('input[name="g-recaptcha-response"]').each(function(){
+                var flagId = $(this).attr('id');
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', {action: 'submit'})
+                        .then(function(token) {
+                        document.getElementById(flagId).value = token;
+                    });
                 });
-            });
-        })
-    });
+            })
+        });
+    }
 }
 ```
