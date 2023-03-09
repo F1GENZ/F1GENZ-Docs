@@ -2,25 +2,42 @@
 sidebar_position: 2
 ---
 
+
 # Check Code
 
+### For me
+- Chỉ nên sử dụng Form contact
+- Gán biến Format money vào variable
+- Gán biến action của Form vào variable
+
 ### General
+
 - `shop → store`
 
 ### Breadcrumb
+
 - `handle → alias`
 - `title → name`
 
+### Form
+
+- Form type: `customer → contact`
+- Capcha: `$('input[name="g-recaptcha-response"]') → $('input[name="Token"]')`
+- Action: `contact → postcontact`
+
 ### Product
+
 :::danger File
 {{ 'option-selectors.js' | bizweb_asset_url | script_tag }}
 :::
+
 - **Remove Haravan Review**
 - `product.title → product.name`
 - `product.handle → product.alias`
 - `product.description → product.content`
 
 ### Swatch
+
 - `op.name → op`
 - `op.position → forloop.index`
 
@@ -32,17 +49,20 @@ sidebar_position: 2
 {{ 'search_filter.js' | bizweb_asset_url }}
 :::
 :::tip Filter
+
 - filter: new Bizweb.SearchFilter()
 - filter.deleteValue(group, field, value, operator);
 - filter.addValue(group, field, value, operator);
-- ``` <option value="">Mặc định</option>
-		<option value="name:asc">A - Z</option>
-		<option value="name:desc">Z - A</option>
-		<option value="price_min:asc">Giá tăng dần</option>
-		<option value="price_min:desc">Giá giảm dần</option>
-		<option value="created_on:desc">Hàng mới nhất</option>
-		<option value="created_on:asc">Hàng cũ nhất</option> ``` 
-:::
+- ````<option value="">Mặc định</option>
+  		<option value="name:asc">A - Z</option>
+  		<option value="name:desc">Z - A</option>
+  		<option value="price_min:asc">Giá tăng dần</option>
+  		<option value="price_min:desc">Giá giảm dần</option>
+  		<option value="created_on:desc">Hàng mới nhất</option>
+  		<option value="created_on:asc">Hàng cũ nhất</option> ```
+  :::
+
+  ````
 
 - **Paginate**: Truyền biến data-page
 

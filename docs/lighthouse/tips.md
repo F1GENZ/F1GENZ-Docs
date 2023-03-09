@@ -43,7 +43,7 @@ if(window.noPS){
 
 ### 3. Content Product/Article
 ```liquid title="Replace liquid"
-{{ article.content | replace: 'src', 'nosrc width="1" height="1" alt="" }}
+{{ article.content | replace: 'src', 'width="1" height="1" alt="" nosrc' }}
 ```
 ```css title="CSS đầu trang"
   #articleBody img{ width: auto; }
