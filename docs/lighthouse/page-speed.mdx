@@ -32,7 +32,7 @@ sidebar_position: 1
 {%- capture stylenofity -%}<link href='//hstatic.net/0/0/global/notification.css' rel='stylesheet'/>{%- endcapture -%}
 {%- capture jsnofity -%}<script data-value='{{ shoptheme }}' src='//hstatic.net/0/0/global/notification.js'></script>{%- endcapture -%}
 {%- assign doneHead = serverHead | remove: stylenofity | remove: jsnofity -%}
-{{ doneHead }}
+{{ doneHead     }}
 ```
 
 ## 2. Code inline cho Tracking, Font
@@ -79,13 +79,12 @@ if (f1genzPS) {
 :::tip Load JS
 
 ```js
-!(function (e, t, n) {
-  var a = t.getElementsByTagName(n)[0],
-    c = t.createElement(n);
-  (c.async = true),
-    (c.src =
-      "https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"),
-    a.parentNode.insertBefore(c, a);
+!(function (e, s, t) {
+  var n = s.getElementsByTagName(t)[0],
+    a = s.createElement(t);
+  (a.async = !0),
+    (a.src = "https://sp.zalo.me/plugins/sdk.js"),
+    n.parentNode.insertBefore(a, n);
 })(window, document, "script");
 ```
 
