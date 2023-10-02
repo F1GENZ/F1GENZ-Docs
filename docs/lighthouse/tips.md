@@ -4,6 +4,11 @@ sidebar_position: 3
 
 # Bước đường cùng !important;
 
+### 0. Disabled Lazy
+``` js
+<script>var _0x7a7f=["\x6E\x6F\x50\x53","\x6C\x61\x7A\x79\x53\x69\x7A\x65\x73\x43\x6F\x6E\x66\x69\x67","\x69\x6E\x69\x74"];var _0x1529=[_0x7a7f[0],_0x7a7f[1],_0x7a7f[2]];var _0x7197=[_0x1529[0],_0x1529[1],_0x1529[2]];var _0x2356=[_0x7197[0],_0x7197[1],_0x7197[2]];if(!window[_0x2356[0]]){window[_0x2356[1]]= window[_0x2356[1]]|| {};window[_0x2356[1]][_0x2356[2]]= false}</script>
+```
+
 ### 1. CLS
 
 :::tip

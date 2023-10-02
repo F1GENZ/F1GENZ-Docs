@@ -1,0 +1,112 @@
+---
+sidebar_position: 5
+---
+
+# Optimize Long Task (Dành riêng cho INP - Cần mới làm)
+
+### 0. Variable Cache
+
+```js
+window.widthCached = window.innerWidth;
+```
+
+### 1. Split Tasks
+
+```js
+window.yieldToMain = () => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, 0);
+  });
+};
+
+async function breakTasks_head() {
+  const tasks = [name_function];
+  let deadline = performance.now() + 50;
+  while (tasks.length > 0) {
+    if (
+      navigator.scheduling?.isInputPending() ||
+      performance.now() >= deadline
+    ) {
+      await window.yieldToMain();
+      deadline = performance.now() + 50;
+      continue;
+    }
+    const task = tasks.shift();
+    task();
+    await window.yieldToMain();
+  }
+}
+```
+
+### Content-Visibility
+
+#### head
+
+#### for NoPS
+
+```js
+<style id="isCVH">.isCVH{ content-visibility: hidden; contain-intrinsic-size: 0;}</style>
+if(window.noPS) document.getElementById('isCVH').remove()
+```
+
+```js
+<style>
+	body > section {
+		content-visibility: auto;
+		contain-intrinsic-size: 10px 500px;
+	}
+</style>
+```
+
+#### foot
+
+```js
+<script type="module">
+	let eqIsh = (a, b, fuzz=2) => {
+		return (Math.abs(a - b) <= fuzz);
+	};
+	let rectNotEQ = (a, b) => {
+		return (!eqIsh(a.width, b.width) ||
+						!eqIsh(a.height, b.height));
+	};
+	let spaced = new WeakMap();
+	let reserveSpace = (el, rect=el.getClientBoundingRect()) => {
+		let old = spaced.get(el);
+		if (!old || rectNotEQ(old, rect)) {
+			spaced.set(el, rect);
+			el.attributeStyleMap.set(
+				"contain-intrinsic-size",
+				`${rect.width}px ${rect.height}px`
+			);
+		}
+	};
+	let iObs = new IntersectionObserver(
+		(entries, o) => {
+			entries.forEach((entry) => {
+				reserveSpace(entry.target, entry.boundingClientRect);
+			});
+		},
+		{ rootMargin: "500px 0px 500px 0px" }
+	);
+	let rObs = new ResizeObserver(
+		(entries, o) => {
+			entries.forEach((entry) => {
+				reserveSpace(entry.target, entry.contentRect);
+			});
+		}
+	);
+	let sections = document.querySelectorAll("body > section");
+	sections.forEach((el) => {
+		iObs.observe(el);
+		rObs.observe(el);
+	});
+	requestAnimationFrame(() => {
+		requestAnimationFrame(() => {
+			sections[0].attributeStyleMap.set(
+				"content-visibility",
+				"auto"
+			);
+		});
+	});
+</script>
+```

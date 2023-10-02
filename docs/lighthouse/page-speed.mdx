@@ -4,36 +4,41 @@ sidebar_position: 1
 
 # Pagespeed
 
-## 0. Code trên content_for_header ##
+## 0. Code trên content_for_header
+
 ```js title="15/03/2023 - Để nhớ một thời ta đã yêu - No Delete"
-<script type='text/javascript'>window.noPS = !Boolean(typeof(navigator.userAgentData) !== "undefined" && typeof(navigator.userAgentData.brands) !== "undefined" && navigator.userAgentData.brands.find(b => b.brand === 'Lighthouse'))</script>
+<script type="text/javascript">
+  var f1genzPS = !Boolean(typeof(navigator.userAgentData) !== "undefined" &&
+  typeof(navigator.userAgentData.brands) !== "undefined" &&
+  navigator.userAgentData.brands.find(b => b.brand === 'Lighthouse'))
+</script>
 ```
 
-```js title="Sử dụng code mã hóa"
-<script type='text/javascript'>var _0xe5d0=["\x6E\x6F\x50\x53","\x75\x73\x65\x72\x41\x67\x65\x6E\x74\x44\x61\x74\x61","\x75\x6E\x64\x65\x66\x69\x6E\x65\x64","\x62\x72\x61\x6E\x64\x73","\x62\x72\x61\x6E\x64","\x4C\x69\x67\x68\x74\x68\x6F\x75\x73\x65","\x66\x69\x6E\x64"];var _0xed8a=[_0xe5d0[0],_0xe5d0[1],_0xe5d0[2],_0xe5d0[3],_0xe5d0[4],_0xe5d0[5],_0xe5d0[6]];var _0x1f57=[_0xed8a[0],_0xed8a[1],_0xed8a[2],_0xed8a[3],_0xed8a[4],_0xed8a[5],_0xed8a[6]];var _0xd541=[_0x1f57[0],_0x1f57[1],_0x1f57[2],_0x1f57[3],_0x1f57[4],_0x1f57[5],_0x1f57[6]];var _0x6f7e=[_0xd541[0],_0xd541[1],_0xd541[2],_0xd541[3],_0xd541[4],_0xd541[5],_0xd541[6]];window[_0x6f7e[0]]=  !Boolean( typeof (navigator[_0x6f7e[1]])!== _0x6f7e[2]&&  typeof (navigator[_0x6f7e[1]][_0x6f7e[3]])!== _0x6f7e[2]&& navigator[_0x6f7e[1]][_0x6f7e[3]][_0x6f7e[6]]((_0xb19ex5)=>{return _0xb19ex5[_0x6f7e[4]]=== _0x6f7e[5]}))</script>
+```js title="Sử dụng code mã hóa - Code trên đọc để hiểu thôi"
+<script type="text/javascript">var _0x531f=["\x75\x73\x65\x72\x41\x67\x65\x6E\x74\x44\x61\x74\x61","\x75\x6E\x64\x65\x66\x69\x6E\x65\x64","\x62\x72\x61\x6E\x64\x73","\x62\x72\x61\x6E\x64","\x4C\x69\x67\x68\x74\x68\x6F\x75\x73\x65","\x66\x69\x6E\x64"];var _0x2366=[_0x531f[0],_0x531f[1],_0x531f[2],_0x531f[3],_0x531f[4],_0x531f[5]];var _0x94e8=[_0x2366[0],_0x2366[1],_0x2366[2],_0x2366[3],_0x2366[4],_0x2366[5]];var _0x8f7d=[_0x94e8[0],_0x94e8[1],_0x94e8[2],_0x94e8[3],_0x94e8[4],_0x94e8[5]];var f1genzPS=!Boolean( typeof (navigator[_0x8f7d[0]])!== _0x8f7d[1]&&  typeof (navigator[_0x8f7d[0]][_0x8f7d[2]])!== _0x8f7d[1]&& navigator[_0x8f7d[0]][_0x8f7d[2]][_0x8f7d[5]]((_0x7373x5)=>{return _0x7373x5[_0x8f7d[3]]=== _0x8f7d[4]}))</script>
 ```
 
+## 1. Code content_for_header
 
-## 1. Code content_for_header ##
 ```js title="Replce content header"
 {%- capture capserverHead -%}{{ content_for_header }}{%- endcapture -%}
 {%- assign syntax1 = "//<![CDATA["-%}
 {%- assign syntax2 = "//]]>"-%}
-{%- assign syntax1_new = "if(window.noPS){"-%}
+{%- assign syntax1_new = "if(f1genzPS){"-%}
 {%- assign syntax2_new = "}"-%}
 {%- assign serverHead = capserverHead | replace: syntax1, syntax1_new | replace: syntax2, syntax2_new -%}
 {%- assign shoptheme = serverHead | split: 'Haravan.theme = {"name":"' | last -%}
 {%- assign shoptheme = shoptheme | split: '","id":' | first -%}
 {%- capture stylenofity -%}<link href='//hstatic.net/0/0/global/notification.css' rel='stylesheet'/>{%- endcapture -%}
 {%- capture jsnofity -%}<script data-value='{{ shoptheme }}' src='//hstatic.net/0/0/global/notification.js'></script>{%- endcapture -%}
-{%- assign doneHead = serverHead | remove: stylenofity | remove: jsnofity -%} 
+{%- assign doneHead = serverHead | remove: stylenofity | remove: jsnofity -%}
 ```
 
-## 2. Code trên content_for_header
+## 2. Code inline cho Tracking, Font
 
 ```js
-if(window.noPS){
-    // Load code Tracking, Load Script quan trọng, Load font...
+if (f1genzPS) {
+  // Load code Tracking, Load Script quan trọng, Load font...
 }
 ```
 
@@ -56,79 +61,107 @@ if(window.noPS){
 <link rel="dns-prefetch" href="//s-static.ak.facebook.com">
 ```
 
-```js title="Preload for CLS"
-<link rel="preload" href="{{ link hình }}" as="image" media="(max-width: 361px)"> 
-<link rel="preload" href="{{ link css }}" as="style">
-// Preload các banner xuất hiện đầu trang
+```js title="Cách load Image"
+// Preload dành cho hình ảnh LCP
+<link rel="preload" href="{{ link hình }}" as="image" media="(max-width: 361px)">
+<img loading="eager" fetchpriority="high" decoding="sync" width="" height="" src="" alt=""/>
+// Native lazy dành cho các hình ảnh còn lại
+<img loading="lazy" decoding="async" width="" height="" src="" alt=""/>
 ```
 
 :::danger
-- Preload các hình ở màn hình đầu tiên, Preload hình nào sẽ không dùng Lazyload cho hình đó.
-:::
+
+- Nếu được bỏ Lazyload, xài Native lazy
+- Nhập đầy đủ witdh, height, alt cho Img
+- Preload duy nhất hình ảnh LCP trên từng trang
 
 :::tip Load JS
 
 ```js
-!function(e,t,n){var a=t.getElementsByTagName(n)[0],c=t.createElement(n);c.async=true,c.src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-",a.parentNode.insertBefore(c,a)}(window,document,"script");
+!(function (e, t, n) {
+  var a = t.getElementsByTagName(n)[0],
+    c = t.createElement(n);
+  (c.async = true),
+    (c.src =
+      "https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"),
+    a.parentNode.insertBefore(c, a);
+})(window, document, "script");
 ```
 
-:::
+###
 
 :::tip Load CSS Font
 
 ```js
+// Load toàn bộ Font chữ, font awesome theo cách này
 var link = document.createElement("link");
 link.type = "text/css";
 link.rel = "stylesheet";
-link.href ="{{ link css }}";
+link.href = "{{ link css }}";
 link.media = "all";
 document.head.appendChild(link);
 ```
 
 :::
 
-:::tip Load CSS không quan trọng
+:::tip cách load CSS (Trong thẻ Head)
 
 ```js
-<link rel="preload" href="{{ 'blog.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-	<link rel="stylesheet" href="{{ 'blog.css' | asset_url }}">
-</noscript>
+// Load and Preload css
+<link rel="preload stylesheet" as="style" fetchpriority="low" href="{{ 'blog.css' | asset_url }}">
 ```
 
 :::
 
-## 3. Xử lý Recapcha ##
+:::tip cách load JS (Trong thẻ Head)
+
+```js
+// Load JS trên thẻ head, chạy Defer
+<script defer fetchpriority="low" src="{{ 'blog.css' | asset_url }}">
+```
+
+:::
+
+## 3. Xử lý Recapcha
+
 ```js title="Xử lý Liquid"
 {%- capture formContact -%}
-{%- form 'customer' -%}		
+{%- form 'customer' -%}
 {%- endform -}
 {%- endcapture -%}
 {{ formContact | replace: 'script', 'noscript' | replace:'noscript src=', 'noscript data-src='}}
 ```
 
 ```js title="Xử lý JS"
-if(window.noPS){
-    if($('input[name="g-recaptcha-response"]').length > 0){
-        $.getScript('https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-').done(function(s,r){			
-            $('head').append(s);
-            $('input[name="g-recaptcha-response"]').each(function(){
-                var flagId = $(this).attr('id');
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', {action: 'submit'})
-                        .then(function(token) {
-                        document.getElementById(flagId).value = token;
-                    });
-                });
+if (window.noPS) {
+  if ($('input[name="g-recaptcha-response"]').length > 0) {
+    $.getScript(
+      "https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"
+    ).done(function (s, r) {
+      $("head").append(s);
+      $('input[name="g-recaptcha-response"]').each(function () {
+        var flagId = $(this).attr("id");
+        grecaptcha.ready(function () {
+          grecaptcha
+            .execute("6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-", {
+              action: "submit",
             })
+            .then(function (token) {
+              document.getElementById(flagId).value = token;
+            });
         });
-    }
+      });
+    });
+  }
 }
 ```
 
-## 4. Xử lý Slider ##
+## 4. Xử lý Slider
+
 :::tip
+
 - Xóa class chạy Slider, giảm Dom về 1 `{%- for i in (1..1) -%}` và append Dom còn lại khi khởi tạo Slider
+
 ```js
 var domSlider = `For từ 2..`;
 $('#home-slider .slider-owl').append(domSlider);
@@ -136,4 +169,5 @@ $('#home-slider .slider-owl').addClass('owl-carousel owl-theme').owlCarousel({
     ...
 });
 ```
+
 :::
