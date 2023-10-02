@@ -96,7 +96,9 @@ if (f1genzPS) {
 // Load toàn bộ Font chữ, font awesome theo cách này
 var link = document.createElement("link");
 link.type = "text/css";
-link.rel = "stylesheet";
+link.rel = "preload stylesheet";
+link.as = "style";
+link.fetchpriority = "high";
 link.href = "{{ link css }}";
 link.media = "all";
 document.head.appendChild(link);
